@@ -39,16 +39,11 @@ from scipy import spatial
 
 import time
 
-east = 48.178067
-west = 48.167052
-south = 16.433543
-north = 16.456803
-
-48.172857, 16.439628
-
 import cdsapi
 
 #download climate reanalysis input data
+
+#north, west, south, east denote the bounding box coordinates
 
 c = cdsapi.Client()
 
