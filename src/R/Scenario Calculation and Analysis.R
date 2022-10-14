@@ -53,7 +53,7 @@ library(lubridate)
 
 system.time(scens<-lapply(1:NROW(scenarios),function(i){
 
-generate_scenarios(site = "site", yt = scenarios$year[i], controllable_demands = c("all controllable demands; e.g. 2"), gridcost = (scenarios$gridcost[i])/1000, feed_in = (scenarios$feed_in_tariff[i])/1000, pvcost = (scenarios$pv_cost[i])/1000, storagecost = (scenarios$storage_cost[i])/1000, interest_rate = scenarios$interest_rate[i], pv_runtime = 20, storage_runtime = 10, efficiency_storage = 0.9, name = i)
+generate_scenarios(site = "site", yt = scenarios$year[i], controllable_demands = c("all controllable demands; e.g. 2"), gridcost = (scenarios$gridcost[i])/1000, feed_in = (scenarios$feed_in_tariff[i])/1000, pvcost = (scenarios$pv_cost[i])/1000, storagecost = (scenarios$storage_cost[i])/1000, interest_rate = scenarios$interest_rate[i], pv_runtime = 20, storage_runtime = 10, efficiency_storage = 0.9, name = i, max_power_to_grid = 100)
   
 }))
 

@@ -20,11 +20,11 @@ parameter t_in_d(dt, d, t);
 
 parameter max_power_controllable_load(dt);
 
-parameter  technical_parameters(tech_param);
+parameter technical_parameters(tech_param);
 
 $gdxin path/input.gdx
 
-$load t c d dt tech_param demand pv_production costs controllable_demand t_in_d technical_parameters max_power_controllable_load
+$load t c d dt tech_param demand pv_production costs controllable_demand t_in_d technical_parameters max_power_controllable_load max_power_to_grid
 $gdxin
 
 display controllable_demand, t_in_d;
@@ -51,14 +51,15 @@ stor_max,
 stor_balance,
 control_dem,
 control_dem_max,
-max_cap_pv;
+max_cap_pv,
+max_power_to_grid;
 
 obj..x_cost =E= costs("investment_costs_PV") * x_pv +
                 costs("investment_costs_storage") * x_storage +
                 sum(t, costs("grid_buy_costs") * x_buy_from_grid(t)) -
                 sum(t, costs("grid_sell_price") * x_sell_to_grid(t))
                         ;
-                            
+
 demand_balance(t).. x_direct_use(t) + x_out(t) + x_buy_from_grid(t)=E=
                             demand(t) + SUM(dt, x_control_demand(dt,t)) + x_sell_to_grid(t);
 
@@ -73,6 +74,9 @@ stor_balance(t)..x_soc(t) =E= x_soc(t-1) + technical_parameters("efficiency_stor
 control_dem(dt,d)..controllable_demand(dt,d) =E= SUM(t$t_in_d(dt,d,t), x_control_demand(dt,t));
 
 control_dem_max(t, dt)..x_control_demand(dt,t) =L= max_power_controllable_load(dt);
+
+
+max_power_to_grid_eq(t).. x_sell_to_grid(t) =L= technical_parameters("max_power_to_grid");
 
 max_cap_pv..x_pv =L= 1000000;
 

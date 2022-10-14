@@ -1,6 +1,6 @@
 
 
-generate_scenarios<-function(site, yt, controllable_demands=NULL, gridcost, feed_in, pvcost, storagecost, interest_rate, pv_runtime, storage_runtime, efficiency_storage, name){
+generate_scenarios<-function(site, yt, controllable_demands=NULL, gridcost, feed_in, pvcost, storagecost, interest_rate, pv_runtime, storage_runtime, efficiency_storage, name, max_power_to_grid){
   
   print(paste0("running scenario ",name))
   
@@ -150,7 +150,8 @@ generate_scenarios<-function(site, yt, controllable_demands=NULL, gridcost, feed
                   t_in_d = t_in_d,
                   namesc = namesc,
                   site = site,
-                  shift = shift)
+                  shift = shift,
+        	  max_power_to_grid = max_power_to_grid)
   
   print(system.time(gams(paste0("path/pvls.gms --site=scenarioout",site," --shift=",shift," --namesc=",namesc,""))))
   
