@@ -1,2 +1,7 @@
 
 *.~gm
+data/input.gdx
+data/output.gdx
+pvls.lst
+pvls.lxi
+pvls.log

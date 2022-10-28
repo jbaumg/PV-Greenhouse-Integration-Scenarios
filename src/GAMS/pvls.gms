@@ -22,7 +22,9 @@ parameter max_power_controllable_load(dt);
 
 parameter technical_parameters(tech_param);
 
-$gdxin path/input.gdx
+parameter max_power_to_grid;
+
+$gdxin data/input.gdx
 
 $load t c d dt tech_param demand pv_production costs controllable_demand t_in_d technical_parameters max_power_controllable_load max_power_to_grid
 $gdxin
