@@ -22,14 +22,14 @@ parameter max_power_controllable_load(dt);
 
 parameter technical_parameters(tech_param);
 
-parameter max_power_to_grid;
-
 $gdxin data/input.gdx
 
-$load t c d dt tech_param demand pv_production costs controllable_demand t_in_d technical_parameters max_power_controllable_load max_power_to_grid
+$load t c d dt tech_param demand pv_production costs controllable_demand t_in_d technical_parameters max_power_controllable_load
 $gdxin
 
 display controllable_demand, t_in_d;
+*0.001 geht noch
+costs("grid_buy_costs")=0.0001;
 
 positive variable
 x_pv,
@@ -54,7 +54,7 @@ stor_balance,
 control_dem,
 control_dem_max,
 max_cap_pv,
-max_power_to_grid;
+max_power_to_grid_eq;
 
 obj..x_cost =E= costs("investment_costs_PV") * x_pv +
                 costs("investment_costs_storage") * x_storage +
@@ -90,8 +90,8 @@ scalar modelstat, solvestat;
 modelstat =  pv.modelstat;
 solvestat =  pv.solvestat;
 
-Execute_Unload 'path/output.gdx';
-Execute_Unload 'path/%site%/%shift%/%namesc%out.gdx';
+Execute_Unload 'data/output.gdx';
+Execute_Unload 'data/%site%/%shift%/%namesc%out.gdx';
 
 
 
